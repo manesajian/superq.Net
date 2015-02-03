@@ -5,7 +5,7 @@ A .Net client library for the superq ORM-datastore
 
 The superq Python module is a lightweight ORM datastore. This library written in C# supports basic manipulation of superqs from .Net.
 
-A simple use case would be exchanging object between environments.
+A simple use case would be exchanging objects between environments.
 
 ## License
 

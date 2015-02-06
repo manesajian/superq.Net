@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class Class1
+    public class LinkedListNode
     {
     }
 }

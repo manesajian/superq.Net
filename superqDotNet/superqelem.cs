@@ -8,5 +8,12 @@ namespace superqDotNet
 {
     public class superqelem
     {
+        public superqelem(string name,
+                          object value,
+                          superq parentSq,
+                          bool buildFromStr)
+        {
+
+        }
     }
 }

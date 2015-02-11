@@ -42,6 +42,7 @@
     <Compile Include="elematom.cs" />
     <Compile Include="LinkedList.cs" />
     <Compile Include="LinkedListNode.cs" />
+    <Compile Include="NodeProcessConnectionMgr.cs" />
     <Compile Include="superq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="superqelem.cs" />

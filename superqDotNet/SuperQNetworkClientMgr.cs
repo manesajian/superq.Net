@@ -37,5 +37,20 @@ namespace superqDotNet
         {
             return null;
         }
+
+        public void superqelem_create(superq sq, superqelem sqe, int idx = -1)
+        {
+
+        }
+
+        public void superqelem_update(superq sq, superqelem sqe)
+        {
+
+        }
+
+        public void superqelem_delete(superq sq, string name)
+        {
+
+        }
     }
 }

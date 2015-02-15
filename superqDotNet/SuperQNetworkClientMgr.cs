@@ -32,7 +32,13 @@ namespace superqDotNet
 
         public void superq_create(superq sq)
         {
+            // build request object from string
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superq_create";
+            request.args = sq.publicName;
+            request.body = sq.ToString();
 
+            send_msg(sq.host, request.ToString());
         }
 
         public superq superq_read(string name, string host)

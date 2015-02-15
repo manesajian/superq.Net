@@ -13,9 +13,21 @@ namespace superqDotNet
 
         }
 
+        private SuperQNodeResponse send_msg(string host, string request)
+        {
+            return null;
+        }
+
         public bool superq_exists(string name, string host)
         {
-            return false;
+            // build request object from string
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superq_exists";
+            request.args = name;
+
+            SuperQNodeResponse response = send_msg(host, request.ToString());
+
+            return bool.Parse(response.result);
         }
 
         public void superq_create(superq sq)

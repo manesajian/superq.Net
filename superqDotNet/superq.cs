@@ -8,6 +8,9 @@ namespace superqDotNet
 {
     public class superq
     {
+        public string publicName { get; set; }
+        public string host { get; set; }
+
         public superq(object initObj,
                       string name,
                       string host,
@@ -18,6 +21,11 @@ namespace superqDotNet
                       bool buildFromFile)
         {
 
+        }
+
+        public string ToString()
+        {
+            return "";
         }
     }
 }

@@ -15,10 +15,7 @@ namespace superqDotNet
                       string name,
                       string host,
                       bool attach,
-                      string keyCol,
-                      int maxlen,
-                      bool buildFromStr,
-                      bool buildFromFile)
+                      bool buildFromStr = false)
         {
 
         }

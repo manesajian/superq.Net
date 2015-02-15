@@ -43,7 +43,18 @@ namespace superqDotNet
 
         public superq superq_read(string name, string host)
         {
-            return null;
+            // build request object from string
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superq_read";
+            request.args = name;
+
+            SuperQNodeResponse response = send_msg(host, request.ToString());
+
+            if (bool.Parse(response.result) == false)
+                throw new Exception(name + " does not exist.");
+
+            // deserialize response body into a detached superq and return
+            return new superq(response.body, "", "", false, true);
         }
 
         public void superq_delete(superq sq)

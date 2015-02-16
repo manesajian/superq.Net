@@ -59,7 +59,12 @@ namespace superqDotNet
 
         public void superq_delete(superq sq)
         {
+            // build request object
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superq_delete";
+            request.args = sq.publicName;
 
+            send_msg(sq.host, request.ToString());
         }
 
         public superq superq_query(superq sq, string query)

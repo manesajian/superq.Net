@@ -85,7 +85,13 @@ namespace superqDotNet
 
         public void superqelem_update(superq sq, superqelem sqe)
         {
+            // build request object
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superqelem_update";
+            request.args = sq.publicName;
+            request.body = sqe.ToString();
 
+            send_msg(sq.host, request.ToString());
         }
 
         public void superqelem_delete(superq sq, string name)

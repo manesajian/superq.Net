@@ -96,7 +96,13 @@ namespace superqDotNet
 
         public void superqelem_delete(superq sq, string name)
         {
+            // build request object
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superqelem_delete";
+            request.args = sq.publicName;
+            request.body = name;
 
+            send_msg(sq.host, request.ToString());
         }
     }
 }

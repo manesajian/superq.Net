@@ -10,6 +10,8 @@ namespace superqDotNet
 {
     public class SuperQNetworkClientMgr
     {
+        const int DEFAULT_TCP_PORT = 9990;
+
         public SuperQNetworkClientMgr()
         {
 
@@ -89,7 +91,7 @@ namespace superqDotNet
             data = recv(socket, messageLength);
 
             // decode character data
-            string msg = System.Text.Encoding.UTF8.GetString(data);
+            string msg = Encoding.UTF8.GetString(data);
 
             // build response object from string
             SuperQNodeResponse response = new SuperQNodeResponse();
@@ -98,9 +100,69 @@ namespace superqDotNet
             return response;
         }
 
-        private SuperQNodeResponse send_msg(string host, string request)
+        private SuperQNodeResponse send_msg(string host, string msg)
         {
-            return null;
+            // SSL support is not currently implemented
+            bool ssl = false;
+
+            int port = DEFAULT_TCP_PORT;
+
+            // 'local' is shorthand for localhost:DEFAULT_PORT
+            if (host == "local")
+            {
+                host = "localhost";
+            }
+            else
+            {
+                if (host.StartsWith("ssl:"))
+                {
+                    string[] elems = host.Split(':');
+
+                    ssl = true;
+                    host = elems[1];
+                    port = Int32.Parse(elems[2]);
+                }
+                else
+                {
+                    try
+                    {
+                        string[] elems = host.Split(':');
+
+                        host = elems[0];
+                        port = Int32.Parse(elems[1]);
+                    }
+                    catch
+                    {
+                        port = DEFAULT_TCP_PORT;
+                    }
+                }
+            }
+
+            // allocate buffer
+            byte[] buf = new byte[5 + msg.Count()];
+
+            // set header byte
+            buf[0] = 0x2A; // 42
+
+            // add message length
+            BitConverter.GetBytes(msg.Count()).CopyTo(buf, 1);
+
+            // add message
+            Encoding.UTF8.GetBytes(msg).CopyTo(buf, 5);     
+
+            // open socket
+            Socket socket = new TcpClient(host, port).Client;
+
+            // send message
+            send(socket, buf);
+
+            // get response
+            SuperQNodeResponse response = get_msg(socket);
+
+            // close socket
+            socket.Close();
+
+            return response;
         }
 
         public bool superq_exists(string name, string host)

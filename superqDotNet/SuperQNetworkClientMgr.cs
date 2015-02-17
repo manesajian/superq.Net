@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace superqDotNet
@@ -11,6 +13,62 @@ namespace superqDotNet
         public SuperQNetworkClientMgr()
         {
 
+        }
+
+        public void send(Socket socket, byte[] buf)
+        {
+            int sent = 0;
+            do
+            {
+                try
+                {
+                    sent += socket.Send(buf, sent, buf.Count() - sent, SocketFlags.None);
+                }
+                catch (SocketException e)
+                {
+                    if (e.SocketErrorCode == SocketError.WouldBlock ||
+                        e.SocketErrorCode == SocketError.IOPending ||
+                        e.SocketErrorCode == SocketError.NoBufferSpaceAvailable)
+                    {
+                        // buffer may be full. Wait and try again
+                        Thread.Sleep(10);
+                    }
+                    else
+                        throw e;
+                }
+
+            } while (sent < buf.Count());
+        }
+
+        public void recv(Socket socket, int bytes)
+        {
+            byte[] buf = new byte[bytes];
+
+            int received = 0;
+            do
+            {
+                try
+                {
+                    received += socket.Receive(buf, received, bytes - received, SocketFlags.None);
+                }
+                catch (SocketException e)
+                {
+                    if (e.SocketErrorCode == SocketError.WouldBlock ||
+                        e.SocketErrorCode == SocketError.IOPending ||
+                        e.SocketErrorCode == SocketError.NoBufferSpaceAvailable)
+                    {
+                        // buffer may be empty. Wait and try again
+                        Thread.Sleep(10);
+                    }
+                    else
+                        throw e;
+                }
+            } while (received < bytes);
+        }
+
+        private SuperQNodeResponse get_msg(Socket socket)
+        {
+            return null;
         }
 
         private SuperQNodeResponse send_msg(string host, string request)

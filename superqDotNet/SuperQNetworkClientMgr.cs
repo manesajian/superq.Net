@@ -15,7 +15,7 @@ namespace superqDotNet
 
         }
 
-        public void send(Socket socket, byte[] buf)
+        private void send(Socket socket, byte[] buf)
         {
             int sent = 0;
             do
@@ -40,7 +40,7 @@ namespace superqDotNet
             } while (sent < buf.Count());
         }
 
-        public void recv(Socket socket, int bytes)
+        private void recv(Socket socket, int bytes)
         {
             byte[] buf = new byte[bytes];
 

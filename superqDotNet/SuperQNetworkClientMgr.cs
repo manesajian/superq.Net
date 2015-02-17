@@ -69,7 +69,18 @@ namespace superqDotNet
 
         public superq superq_query(superq sq, string query)
         {
-            return null;
+            // build request object from string
+            SuperQNodeRequest request = new SuperQNodeRequest();
+            request.cmd = "superq_query";
+            request.args = sq.publicName;
+            request.body = query;
+
+            SuperQNodeResponse response = send_msg(sq.host, request.ToString());
+
+            if (bool.Parse(response.result) == false)
+                throw new Exception("Not sure what to raise here yet.");
+            
+            return new superq(response.body, "", "", false, true);
         }
 
         public void superqelem_create(superq sq, superqelem sqe, int idx = -1)

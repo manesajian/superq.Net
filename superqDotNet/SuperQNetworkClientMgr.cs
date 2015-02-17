@@ -40,7 +40,7 @@ namespace superqDotNet
             } while (sent < buf.Count());
         }
 
-        private void recv(Socket socket, int bytes)
+        private byte[] recv(Socket socket, int bytes)
         {
             byte[] buf = new byte[bytes];
 
@@ -64,11 +64,13 @@ namespace superqDotNet
                         throw e;
                 }
             } while (received < bytes);
+
+            return buf;
         }
 
         private SuperQNodeResponse get_msg(Socket socket)
         {
-            return null;
+
         }
 
         private SuperQNodeResponse send_msg(string host, string request)

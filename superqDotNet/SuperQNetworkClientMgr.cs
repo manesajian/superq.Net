@@ -70,7 +70,32 @@ namespace superqDotNet
 
         private SuperQNodeResponse get_msg(Socket socket)
         {
+            // first byte will always be a marker to verify begining of Request
+            byte[] data = recv(socket, 1);
 
+            if (data.Count() != 1 || data[0] != 42)
+                throw new Exception("Marker byte not read. Bad message.");
+
+            // next 4 bytes must always be message body length
+            data = recv(socket, 4);
+
+            if (data.Count() != 4)
+                throw new Exception("Msg length not read. Bad message.");
+
+            // convert length
+            int messageLength = BitConverter.ToInt32(data, 0);
+
+            // now read the rest of the message
+            data = recv(socket, messageLength);
+
+            // decode character data
+            string msg = System.Text.Encoding.UTF8.GetString(data);
+
+            // build response object from string
+            SuperQNodeResponse response = new SuperQNodeResponse();
+            response.from_str(msg);
+
+            return response;
         }
 
         private SuperQNodeResponse send_msg(string host, string request)

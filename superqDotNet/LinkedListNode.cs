@@ -8,5 +8,12 @@ namespace superqDotNet
 {
     public class LinkedListNode
     {
+        public LinkedListNode prev { get; set; }
+        public LinkedListNode next { get; set; }
+
+        public LinkedListNode()
+        {
+
+        }
     }
 }

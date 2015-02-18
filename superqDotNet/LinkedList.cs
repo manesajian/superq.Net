@@ -134,7 +134,62 @@ namespace superqDotNet
 
         public LinkedListNode pop(int idx)
         {
-            return null;
+            if (count < 1)
+                return null;
+
+            LinkedListNode node = null;
+        
+            if (idx <= 0)
+            {
+                // get list head
+                node = head;
+
+                // point list head to next element
+                head = head.next;
+
+                // if list not empty, tell head it has no prev         
+                if (head != null)
+                    head.prev = null;
+
+                // one less element in the list
+                count -= 1;
+
+                // if down to 1 element, set tail to head
+                if (count == 1)
+                    tail = head;
+            }
+            else if (idx >= count - 1)
+            {
+                // get list tail
+                node = tail;
+
+                // point list tail to previous element
+                tail = tail.prev;
+
+                // if list not empty, tell tail it has no next
+                if (tail != null)
+                    tail.next = null;
+
+                // one less element in the list
+                count -= 1;
+
+                // if down to 1 element, set head to tail
+                if (count == 1)
+                    head = tail;
+            }
+            else
+            {
+                node = lookup(idx);
+
+                // because node is not head or tail, these dereferences are safe
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
+
+                // one less element in the list
+                count -= 1;
+            }
+
+            return node;
         }
 
         public LinkedListNode pop_head()

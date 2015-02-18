@@ -6,12 +6,22 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class superqelem
+    public class superqelem : LinkedListNode
     {
         public superqelem(string name,
                           object value,
                           superq parentSq,
                           bool buildFromStr)
+        {
+
+        }
+
+        public string ToString()
+        {
+            return "";
+        }
+
+        public void FromString(string sqe)
         {
 
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class LinkedList
+    public class LinkedList<LinkedListNode> : IEnumerable<LinkedListNode>
     {
         public LinkedListNode head = null;
         public LinkedListNode tail = null;
@@ -17,6 +18,21 @@ namespace superqDotNet
         public LinkedList()
         {
 
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public IEnumerator<LinkedListNode> GetEnumerator()
+        {
+            LinkedListNode node = head;
+            while (node != null)
+            {
+                yield return node;
+                node = node.next;
+            }
         }
 
         private LinkedListNode lookup(int idx)

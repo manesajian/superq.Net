@@ -194,12 +194,17 @@ namespace superqDotNet
 
         public LinkedListNode pop_head()
         {
-            return null;
+            return pop(0);
+        }
+
+        public LinkedListNode pop_middle(int idx)
+        {
+            return pop(idx);
         }
 
         public LinkedListNode pop_tail()
         {
-            return null;
+            return pop(count - 1);
         }
 
         public LinkedListNode pop_node(LinkedListNode node)

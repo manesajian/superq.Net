@@ -78,7 +78,7 @@ namespace superqDotNet
 
                 head = node;
             }
-            else if (idx >= count - 1)
+            else if (idx >= count)
             {
                 // set new tail, order of operations matters
                 node.next = null;
@@ -119,17 +119,17 @@ namespace superqDotNet
 
         public void push_head(LinkedListNode node)
         {
-
+            push(0, node);
         }
 
         public void push_middle(int idx, LinkedListNode node)
         {
-
+            push(idx, node);
         }
 
         public void push_tail(LinkedListNode node)
         {
-
+            push(count, node);
         }
 
         public LinkedListNode pop(int idx)

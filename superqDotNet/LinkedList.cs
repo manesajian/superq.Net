@@ -26,7 +26,49 @@ namespace superqDotNet
 
         public void push(int idx, LinkedListNode node)
         {
+            if idx == 0:
+                // set new head, order of operations matters
+                node.prev = None;
+                node.next = self.head;
 
+            # if list not empty, point current head to new head
+            if self.head is not None:
+                self.head.prev = node
+            else:
+                self.tail = node
+
+            self.head = node
+# TODO: this looks like an off by one. Should be count - 1. Test case?
+# Also, there is the question of >.
+        elif idx == self.__count:
+            # set new tail, order of operations matters
+            node.next = None
+            node.prev = self.tail
+
+            # if list not empty, point current tail to new tail
+            if self.tail is not None:
+                self.tail.next = node
+            else:
+                self.head = node
+
+            self.tail = node
+        else:
+            curNode = self.__lookup(idx)
+
+            # handle empty list case
+            if curNode is None:
+                self.head = node
+                self.tail = node
+                node.prev = None
+                node.next = None
+            else:
+                # splice new node in
+                node.next = curNode
+                node.prev = curNode.prev
+                curNode.prev.next = node
+                curNode.prev = node
+
+        self.__count += 1
         }
 
         public void push_head(LinkedListNode node)

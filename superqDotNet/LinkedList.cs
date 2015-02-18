@@ -229,7 +229,23 @@ namespace superqDotNet
 
         public void insert_before(LinkedListNode oldNode, LinkedListNode newNode)
         {
+            // handle case inserting new head
+            if (head == oldNode)
+            {
+                newNode.prev = null;
+                newNode.next = oldNode;
+                oldNode.prev = newNode;
+                head = newNode;
+            }
+            else
+            {
+                newNode.prev = oldNode.prev;
+                newNode.next = oldNode;
+                oldNode.prev.next = newNode;
+                oldNode.prev = newNode;
+            }
 
+            count += 1;
         }
 
         public void insert_after(LinkedListNode oldNode, LinkedListNode newNode)

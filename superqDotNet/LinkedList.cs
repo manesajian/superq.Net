@@ -271,7 +271,28 @@ namespace superqDotNet
 
         public void move_up(LinkedListNode node)
         {
+            // can't move list node up if it is already head
+            if (node.prev == null)
+                return;
 
+            // these are aliases to the 4 starting elements involved
+            LinkedListNode above_node_prev = node.prev.prev;
+            LinkedListNode above_node = node.prev;
+            LinkedListNode current_node = node;
+            LinkedListNode current_node_next = node.next;
+
+            // do the pointer swaps
+            if (above_node_prev != null)
+                above_node_prev.next = current_node;
+            current_node.prev = above_node_prev;
+            current_node.next = above_node;
+            above_node.prev = current_node;
+            above_node.next = current_node_next;
+            above_node.next.prev = above_node;
+
+            // if node is at top of list, set head to node
+            if (current_node.prev == null)
+                head = current_node;
         }
 
         public void move_down(LinkedListNode node)

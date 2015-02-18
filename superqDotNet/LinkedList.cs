@@ -209,7 +209,22 @@ namespace superqDotNet
 
         public LinkedListNode pop_node(LinkedListNode node)
         {
-            return null;
+            if (node == null)
+                return null;
+
+            if (node.prev != null)
+                node.prev.next = node.next;
+            else
+                head = node.next;
+
+            if (node.next != null)
+                node.next.prev = node.prev;
+            else
+                tail = node.prev;
+
+            count -= 1;
+
+            return node;
         }
 
         public void insert_before(LinkedListNode oldNode, LinkedListNode newNode)

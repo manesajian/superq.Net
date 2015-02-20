@@ -6,7 +6,17 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class elematom
+    public class elematom : LinkedListNode
     {
+        public string name { get; set; }
+        public string type { get; set; }
+        public string value { get; set; }
+
+        public elematom(string name, string type, string value)
+        {
+            this.name = name;
+            this.type = type;
+            this.value = value;
+        }
     }
 }

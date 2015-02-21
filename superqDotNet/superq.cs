@@ -9,7 +9,7 @@ namespace superqDotNet
     public class superq
     {
         private LinkedList<superqelem> list = new LinkedList<superqelem>();
-        private Dictionary<string, LinkedListNode> dict = new Dictionary<string, LinkedListNode>();
+        private Dictionary<object, superqelem> dict = new Dictionary<object, superqelem>();
 
         public string name;
         public string host;
@@ -92,7 +92,7 @@ namespace superqDotNet
         {
             // initialize internal storage
             list = new LinkedList<superqelem>();
-            dict = new Dictionary<string, LinkedListNode>();
+            dict = new Dictionary<object, superqelem>();
 
             // separate out sq header from remainder
             int headerSeparatorIdx = sqStr.IndexOf(';');
@@ -136,7 +136,7 @@ namespace superqDotNet
 
                 // slice the rest of the sqe out
                 string sqeStr = sqStr.Substring(0, elemLen);
-                sqStr = sqStr[elemLen : ];
+                sqStr = sqStr.Substring(elemLen);
 
                 // deserialize sqe from string fragment
                 superqelem sqe = new superqelem(sqeStr, null, this, true);

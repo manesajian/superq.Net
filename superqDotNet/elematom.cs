@@ -10,9 +10,9 @@ namespace superqDotNet
     {
         public string name { get; set; }
         public string type { get; set; }
-        public string value { get; set; }
+        public object value { get; set; }
 
-        public elematom(string name, string type, string value)
+        public elematom(string name, string type, object value)
         {
             this.name = name;
             this.type = type;

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class superqelem : LinkedListNode
+    public class superqelem : LinkedListNode, IEnumerable<elematom>
     {
         // elematom list
-        private LinkedList<elematom> list = new LinkedList<elematom>();
+        private LinkedList list = new LinkedList();
 
         // elematom dict, keyed by field name
         private Dictionary<string, LinkedListNode> dict = new Dictionary<string, LinkedListNode>();
@@ -36,13 +36,13 @@ namespace superqDotNet
             return this.GetEnumerator();
         }
 
-        public IEnumerator<LinkedListNode> GetEnumerator()
+        public IEnumerator<elematom> GetEnumerator()
         {
-            LinkedListNode node = list.head;
+            elematom node = (elematom)list.head;
             while (node != null)
             {
                 yield return node;
-                node = node.next;
+                node = (elematom)node.next;
             }
         }
 
@@ -51,7 +51,7 @@ namespace superqDotNet
             return "str";
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string sqeStr = string.Format("{0},{1},{2},{3},{4};", toPyType(name),
                                                                   name,

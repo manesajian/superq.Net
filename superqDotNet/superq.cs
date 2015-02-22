@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class superq
+    public class superq : IEnumerable<superqelem>
     {
-        private LinkedList<superqelem> list = new LinkedList<superqelem>();
+        private LinkedList list = new LinkedList();
         private Dictionary<object, superqelem> dict = new Dictionary<object, superqelem>();
 
         public string name;
@@ -38,6 +39,21 @@ namespace superqDotNet
             attached = false;
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public IEnumerator<superqelem> GetEnumerator()
+        {
+            superqelem node = (superqelem)list.head;
+            while (node != null)
+            {
+                yield return node;
+                node = (superqelem)node.next;
+            }
+        }
+
         private object this[string propertyName]
         {
             get { return this.GetType().GetProperty(propertyName).GetValue(this, null); }
@@ -63,7 +79,7 @@ namespace superqDotNet
             //        self.create_elem_datastore_only(sqe);
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string sqHdr = name + "," + list.count + ";";
 
@@ -91,7 +107,7 @@ namespace superqDotNet
         public void FromString(string sqStr, bool attach = false)
         {
             // initialize internal storage
-            list = new LinkedList<superqelem>();
+            list = new LinkedList();
             dict = new Dictionary<object, superqelem>();
 
             // separate out sq header from remainder

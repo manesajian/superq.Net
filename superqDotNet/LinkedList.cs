@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class LinkedList<LinkedListNode> : IEnumerable<LinkedListNode>
+    public class LinkedList : IEnumerable<LinkedListNode>
     {
         public LinkedListNode head = null;
         public LinkedListNode tail = null;

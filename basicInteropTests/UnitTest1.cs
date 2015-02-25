@@ -11,7 +11,7 @@ namespace basicInteropTests
         [TestMethod]
         public void BasicInstantiation()
         {
-            superq sq = new superq(new int[0]);
+            superq sq = superq.Create(new object[0]);
         }
     }
 }

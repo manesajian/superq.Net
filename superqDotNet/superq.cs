@@ -39,6 +39,14 @@ namespace superqDotNet
             attached = false;
         }
 
+        static public superq Create(object obj)
+        {
+            string name = Guid.NewGuid().ToString();
+            string host = "localhost";
+
+            return new superq(obj, name, host, false, false);
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

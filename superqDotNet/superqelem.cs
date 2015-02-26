@@ -10,7 +10,7 @@ namespace superqDotNet
     public class superqelem : LinkedListNode, IEnumerable<elematom>
     {
         // elematom list
-        private LinkedList list = new LinkedList();
+        private LinkedList<elematom> list = new LinkedList<elematom>();
 
         // elematom dict, keyed by field name
         private Dictionary<string, LinkedListNode> dict = new Dictionary<string, LinkedListNode>();
@@ -21,14 +21,14 @@ namespace superqDotNet
 
         public string valueType;
 
-        public bool buildFromStr;
-
         public superqelem(string name,
                           object value,
                           superq parentSq,
                           bool buildFromStr)
         {
-
+            this.name = name;
+            this.value = value;
+            this.parentSq = parentSq;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

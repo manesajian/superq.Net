@@ -28,40 +28,40 @@ namespace basicInteropTests
             // Add elements
             for (int i = 0; i < 10; ++i)
                 llist.push_tail(new FooNode(i + 1));
-            Assert.AreEqual(llist.count, 10);
-            Assert.AreEqual(llist[0].a, 1);
+            Assert.AreEqual(10, llist.count);
+            Assert.AreEqual(1, llist[0].a);
 
             // Remove elements from head
             for (int i = 0; i < 5; ++i)
                 llist.pop_head();
-            Assert.AreEqual(llist.count, 5);
+            Assert.AreEqual(5, llist.count);
 
             // Add elements to head
             for (int i = 0; i < 5; ++i)
                 llist.push_head(new FooNode(i + 1));
-            Assert.AreEqual(llist.count, 10);
-            Assert.AreEqual(llist[0].a, 5);
+            Assert.AreEqual(10, llist.count);
+            Assert.AreEqual(5, llist[0].a);
 
             // Remove elements from tail
             for (int i = 0; i < 5; ++i)
                 llist.pop_tail();
-            Assert.AreEqual(llist.count, 5);
+            Assert.AreEqual(5, llist.count);
 
             // Add into middle of list
             llist.push_middle(3, new FooNode(11));
-            Assert.AreEqual(llist.count, 6);
-            Assert.AreEqual(llist[3].a, 11);
+            Assert.AreEqual(6, llist.count);
+            Assert.AreEqual(11, llist[3].a);
 
             // Remove from middle of list
             FooNode fooNode = llist.pop_middle(3);
-            Assert.AreEqual(llist.count, 5);
-            Assert.AreEqual(fooNode.a, 11);
+            Assert.AreEqual(5, llist.count);
+            Assert.AreEqual(11, fooNode.a);
 
             // Push/pop from both sides of list
             llist = new LinkedList<FooNode>();
             for (int i = 0; i < 10; ++i)
                 llist.push_tail(new FooNode(i + 1));
-            Assert.AreEqual(llist.count, 10);
+            Assert.AreEqual(10, llist.count);
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace basicInteropTests
         public void InstantiateFromIntArray()
         {
             superq sq = superq.Create(new int[1, 2, 3]);
-            Assert.AreEqual(sq.list.count, 3);
+            Assert.AreEqual(3, sq.list.count);
         }
     }
 }

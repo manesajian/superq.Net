@@ -9,8 +9,8 @@ namespace superqDotNet
 {
     public class superq : IEnumerable<superqelem>
     {
-        private LinkedList list = new LinkedList();
-        private Dictionary<object, superqelem> dict = new Dictionary<object, superqelem>();
+        public LinkedList<superqelem> list = new LinkedList<superqelem>();
+        public Dictionary<object, superqelem> dict = new Dictionary<object, superqelem>();
 
         public string name;
         public string host;
@@ -22,7 +22,7 @@ namespace superqDotNet
 
         public bool attached = false;
 
-        public superq(object initObj,
+        public superq(object obj,
                       string name,
                       string host,
                       bool attach,
@@ -36,15 +36,18 @@ namespace superqDotNet
             maxlen = 0;
             autoKey = false;
 
+            if (obj is IEnumerable)
+                foreach (var item in (IEnumerable)obj)
+                    CreateElem(item);
+
             attached = false;
         }
 
         static public superq Create(object obj)
         {
             string name = Guid.NewGuid().ToString();
-            string host = "localhost";
 
-            return new superq(obj, name, host, false, false);
+            return new superq(obj, name, string.Empty, false, false);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -115,7 +118,7 @@ namespace superqDotNet
         public void FromString(string sqStr, bool attach = false)
         {
             // initialize internal storage
-            list = new LinkedList();
+            list = new LinkedList<superqelem>();
             dict = new Dictionary<object, superqelem>();
 
             // separate out sq header from remainder
@@ -169,6 +172,11 @@ namespace superqDotNet
                 dict[sqe.name] = sqe;
                 list.push_tail(sqe);
             }
+        }
+
+        public void CreateElem(object obj)
+        {
+            list.push_tail(new superqelem("", obj, this, false));
         }
     }
 }

@@ -186,7 +186,14 @@ namespace superqDotNet
 
         public void CreateElem(dynamic obj)
         {
-            list.push_tail(new superqelem("", obj, this, false));
+            superqelem sqe = obj as superqelem;
+            if (sqe == null)
+            {
+                sqe = new superqelem("", obj, this, false);
+            }
+
+            list.push_tail(sqe);
+            dict[sqe.name] = sqe;
         }
     }
 }

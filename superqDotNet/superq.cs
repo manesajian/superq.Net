@@ -22,7 +22,7 @@ namespace superqDotNet
 
         public bool attached = false;
 
-        public superq(object obj,
+        public superq(dynamic obj,
                       string name,
                       string host,
                       bool attach,
@@ -36,14 +36,14 @@ namespace superqDotNet
             maxlen = 0;
             autoKey = false;
 
-            if (obj is IEnumerable)
-                foreach (var item in (IEnumerable)obj)
-                    CreateElem(item);
+            if (obj.GetType().IsArray)
+                foreach (dynamic elem in (Array)obj)
+                    CreateElem(elem);
 
             attached = false;
         }
 
-        static public superq Create(object obj)
+        static public superq Create(dynamic obj)
         {
             string name = Guid.NewGuid().ToString();
 
@@ -174,7 +174,7 @@ namespace superqDotNet
             }
         }
 
-        public void CreateElem(object obj)
+        public void CreateElem(dynamic obj)
         {
             list.push_tail(new superqelem("", obj, this, false));
         }

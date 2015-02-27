@@ -76,5 +76,12 @@ namespace basicInteropTests
             superq sq = superq.Create(new int[3] {1, 2, 3});
             Assert.AreEqual(3, sq.list.count);
         }
+
+        [TestMethod]
+        public void RetrieveElemByIndex()
+        {
+            superq sq = superq.Create(new int[3] { 1, 2, 3 });
+            Assert.AreEqual(2, sq[1]);
+        }
     }
 }

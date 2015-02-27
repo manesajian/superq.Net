@@ -15,13 +15,13 @@ namespace superqDotNet
         // elematom dict, keyed by field name
         private Dictionary<string, LinkedListNode> dict = new Dictionary<string, LinkedListNode>();
 
-        public object name;
+        public dynamic name;
         public dynamic value;
         public superq parentSq;
 
         public string valueType;
 
-        public superqelem(string name,
+        public superqelem(dynamic name,
                           dynamic value,
                           superq parentSq,
                           bool buildFromStr)

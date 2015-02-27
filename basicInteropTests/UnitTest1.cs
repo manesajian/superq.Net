@@ -83,5 +83,11 @@ namespace basicInteropTests
             superq sq = superq.Create(new int[3] { 1, 2, 3 });
             Assert.AreEqual(2, sq[1]);
         }
+
+        [TestMethod]
+        public void InstantiateFromNonUniqueList()
+        {
+            superq sq = superq.Create(new int[3] { 1, 1, 2 });
+        }
     }
 }

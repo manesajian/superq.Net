@@ -196,6 +196,16 @@ namespace superqDotNet
             dict[sqe.name] = sqe;
         }
 
+        public void UpdateElem(dynamic obj)
+        {
+
+        }
+
+        public void DeleteElem(dynamic obj)
+        {
+
+        }
+
         public void push(dynamic val, int idx = -1, bool block = false, int timeout = -1)
         {
 

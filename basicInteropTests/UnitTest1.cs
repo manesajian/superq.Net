@@ -73,7 +73,7 @@ namespace basicInteropTests
         [TestMethod]
         public void InstantiateFromIntArray()
         {
-            superq sq = superq.Create(new int[1, 2, 3]);
+            superq sq = superq.Create(new int[3] {1, 2, 3});
             Assert.AreEqual(3, sq.list.count);
         }
     }

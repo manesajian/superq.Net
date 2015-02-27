@@ -16,13 +16,13 @@ namespace superqDotNet
         private Dictionary<string, LinkedListNode> dict = new Dictionary<string, LinkedListNode>();
 
         public object name;
-        public object value;
+        public dynamic value;
         public superq parentSq;
 
         public string valueType;
 
         public superqelem(string name,
-                          object value,
+                          dynamic value,
                           superq parentSq,
                           bool buildFromStr)
         {

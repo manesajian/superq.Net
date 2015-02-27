@@ -196,6 +196,21 @@ namespace superqDotNet
             dict[sqe.name] = sqe;
         }
 
+        public void push(dynamic val, int idx = -1, bool block = false, int timeout = -1)
+        {
+
+        }
+
+        public void push_head(dynamic val, bool block = true, int timeout = -1)
+        {
+
+        }
+
+        public void push_tail(dynamic val, bool block = true, int timeout = -1)
+        {
+
+        }
+
         public dynamic pop(int idx = -1, bool block = true, int timeout = -1)
         {
             return null;

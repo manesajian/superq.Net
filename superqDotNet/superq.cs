@@ -195,5 +195,25 @@ namespace superqDotNet
             list.push_tail(sqe);
             dict[sqe.name] = sqe;
         }
+
+        public dynamic pop(int idx = -1, bool block = true, int timeout = -1)
+        {
+            return null;
+        }
+
+        public dynamic pop_head(bool block = true, int timeout = -1)
+        {
+            return null;
+        }
+
+        public dynamic pop_tail(bool block = true, int timeout = -1)
+        {
+            return null;
+        }
+
+        public void rotate(int n)
+        {
+
+        }
     }
 }

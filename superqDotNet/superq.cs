@@ -10,7 +10,7 @@ namespace superqDotNet
     public class superq : IEnumerable<superqelem>
     {
         public LinkedList<superqelem> list = new LinkedList<superqelem>();
-        public Dictionary<object, superqelem> dict = new Dictionary<object, superqelem>();
+        public Dictionary<dynamic, superqelem> dict = new Dictionary<dynamic, superqelem>();
 
         public string name;
         public string host;
@@ -65,10 +65,20 @@ namespace superqDotNet
             }
         }
 
-        private object this[string propertyName]
+        private dynamic getitem(dynamic val)
         {
-            get { return this.GetType().GetProperty(propertyName).GetValue(this, null); }
-            set { this.GetType().GetProperty(propertyName).SetValue(this, value, null); }
+            if (dict.ContainsKey(val))
+                return dict[val].value;
+            else if (val is Int32)
+                return list[val].value;
+
+            throw new Exception("Couldn't getitem().");
+        }
+
+        public object this[dynamic val]
+        {
+            get { return getitem(val); }
+            set { this.GetType().GetProperty(val).SetValue(this, value, null); }
         }
 
         private void attach()
@@ -119,7 +129,7 @@ namespace superqDotNet
         {
             // initialize internal storage
             list = new LinkedList<superqelem>();
-            dict = new Dictionary<object, superqelem>();
+            dict = new Dictionary<dynamic, superqelem>();
 
             // separate out sq header from remainder
             int headerSeparatorIdx = sqStr.IndexOf(';');

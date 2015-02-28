@@ -95,5 +95,11 @@ namespace basicInteropTests
         {
             superq sq = superq.Create(new FooNode[] { new FooNode(1), new FooNode(2) });
         }
+
+        [TestMethod]
+        public void InstantiateWithKeyCol()
+        {
+            superq sq = superq.Create(new FooNode[] { new FooNode(1), new FooNode(2) }, "a");
+        }
     }
 }

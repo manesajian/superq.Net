@@ -25,14 +25,15 @@ namespace superqDotNet
         public superq(dynamic obj,
                       string name,
                       string host,
+                      string keyCol,
                       bool attach,
                       bool buildFromStr = false)
         {
             this.name = name;
             this.host = host;
+            this.keyCol = keyCol;
 
             publicName = "";
-            keyCol = "";
             maxlen = 0;
             autoKey = false;
 
@@ -43,11 +44,11 @@ namespace superqDotNet
             attached = false;
         }
 
-        static public superq Create(dynamic obj)
+        static public superq Create(dynamic obj, string keyCol = "")
         {
             string name = Guid.NewGuid().ToString();
 
-            return new superq(obj, name, string.Empty, false, false);
+            return new superq(obj, name, string.Empty, keyCol, false, false);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

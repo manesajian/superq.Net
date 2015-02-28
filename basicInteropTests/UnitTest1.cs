@@ -80,14 +80,20 @@ namespace basicInteropTests
         [TestMethod]
         public void RetrieveElemByIndex()
         {
-            superq sq = superq.Create(new int[3] { 1, 2, 3 });
+            superq sq = superq.Create(new int[] { 1, 2, 3 });
             Assert.AreEqual(2, sq[1]);
         }
 
         [TestMethod]
         public void InstantiateFromNonUniqueList()
         {
-            superq sq = superq.Create(new int[3] { 1, 1, 2 });
+            superq sq = superq.Create(new int[] { 1, 1, 2 });
+        }
+
+        [TestMethod]
+        public void InstantiateFromCustomObjects()
+        {
+            superq sq = superq.Create(new FooNode[] { new FooNode(1), new FooNode(2) });
         }
     }
 }

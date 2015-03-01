@@ -239,7 +239,13 @@ namespace superqDotNet
 
         public void rotate(int n)
         {
-
+            // Iterate to the indicated index
+            if (n >= 0)
+                for (int i = 0; i < n; ++i)
+                    push_head(pop_tail());
+            else
+                for (int i = 1; i < Math.Abs(n))
+                    push_tail(pop_head());
         }
     }
 }

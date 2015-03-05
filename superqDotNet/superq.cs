@@ -185,6 +185,16 @@ namespace superqDotNet
             }
         }
 
+        private superqelem wrap_elem(object obj)
+        {
+            return null;
+        }
+
+        private object unwrap_elem(superqelem sqe)
+        {
+            return null;
+        }
+
         public void CreateElem(dynamic obj)
         {
             superqelem sqe = obj as superqelem;
@@ -198,6 +208,11 @@ namespace superqDotNet
         }
 
         public void UpdateElem(dynamic obj)
+        {
+
+        }
+
+        private void DeleteElemDatastore(superqelem sqe)
         {
 
         }
@@ -224,17 +239,57 @@ namespace superqDotNet
 
         public dynamic pop(int idx = -1, bool block = true, int timeout = -1)
         {
-            return null;
+            // TODO: still need to add synchronization
+            if (!block)
+            {
+                if (list.count == 0)
+                    throw new Exception("No elements in superq.");
+            }
+            else if (timeout == -1)
+            {
+                while (list.count == 0)
+                {
+                    timeout = -1; // TODO: fix this bogus statement with wait
+                }
+            }
+            else if (timeout < 0)
+                throw new Exception("Invalid timeout value.");
+            else
+            {
+                DateTime endTime = DateTime.Now.AddSeconds(timeout);
+                while (list.count == 0)
+                {
+                    if (DateTime.Now > endTime)
+                        throw new Exception("No elements in superq.");
+                    timeout = timeout; // TODO: fix this bogus statement with wait
+                }
+            }
+
+            // Default to stack/LIFO behavior
+            if (idx == -1)
+                idx = list.count - 1;
+
+            // Remove element from internal collections
+            superqelem sqe = list.pop(idx);
+            dict.Remove(sqe.name);
+
+            // For now pops on hosted superqs are slow due to blocking here
+            if (attached)
+                DeleteElemDatastore(sqe);
+
+            // TODO: Look at python version for condition wakeup here
+
+            return unwrap_elem(sqe);
         }
 
         public dynamic pop_head(bool block = true, int timeout = -1)
         {
-            return null;
+            return pop(0, block, timeout);
         }
 
         public dynamic pop_tail(bool block = true, int timeout = -1)
         {
-            return null;
+            return pop(list.count - 1, block, timeout);
         }
 
         public void rotate(int n)

@@ -229,12 +229,12 @@ namespace superqDotNet
 
         public void push_head(dynamic val, bool block = true, int timeout = -1)
         {
-
+            push(val, 0, block, timeout);
         }
 
         public void push_tail(dynamic val, bool block = true, int timeout = -1)
         {
-
+            push(val, list.count, block, timeout);
         }
 
         public dynamic pop(int idx = -1, bool block = true, int timeout = -1)

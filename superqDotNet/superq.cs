@@ -299,7 +299,7 @@ namespace superqDotNet
                 for (int i = 0; i < n; ++i)
                     push_head(pop_tail());
             else
-                for (int i = 1; i < Math.Abs(n))
+                for (int i = 1; i < Math.Abs(n); ++i)
                     push_tail(pop_head());
         }
     }

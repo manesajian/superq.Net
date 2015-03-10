@@ -229,6 +229,19 @@ namespace superqDotNet
 
         public void push(dynamic val, int idx = -1, bool block = false, int timeout = -1)
         {
+            // TODO: still need to add synchronization
+            if (!block)
+            {
+                if (list.count == 0)
+                    throw new Exception("No elements in superq.");
+            }
+            else if (timeout == -1)
+            {
+                while (list.count == 0)
+                {
+                    timeout = -1; // TODO: fix this bogus statement with wait
+                }
+            }
 
         }
 

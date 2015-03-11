@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace superqDotNet
@@ -17,7 +18,7 @@ namespace superqDotNet
         public string publicName;
 
         public string keyCol;
-        public int maxlen;
+        public int? maxlen;
         public bool autoKey;
 
         public bool attached = false;
@@ -227,22 +228,26 @@ namespace superqDotNet
 
         }
 
-        public void push(dynamic val, int idx = -1, bool block = false, int timeout = -1)
+        public void push(dynamic val, int idx = -1, bool block = false, int? timeout = null)
         {
-            // TODO: still need to add synchronization
-            if (!block)
+            if (maxlen.HasValue && list.count > maxlen)
             {
-                if (list.count == 0)
-                    throw new Exception("No elements in superq.");
-            }
-            else if (timeout == -1)
-            {
-                while (list.count == 0)
+                if (block)
                 {
-                    timeout = -1; // TODO: fix this bogus statement with wait
+                    if (!timeout.HasValue)
+                        while (list.count >= maxlen)
+                            Thread.Sleep(10);
+                    else
+                    {
+                        if (timeout < 0)
+                            throw new Exception("timeout must be non-negative");
+                        else
+                        {
+
+                        }
+                    }
                 }
             }
-
         }
 
         public void push_head(dynamic val, bool block = true, int timeout = -1)

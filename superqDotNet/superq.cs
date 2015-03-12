@@ -196,6 +196,11 @@ namespace superqDotNet
             return null;
         }
 
+        public void CreateElemDatastore(superqelem sqe, int? idx = null)
+        {
+
+        }
+
         public void CreateElem(dynamic obj)
         {
             superqelem sqe = obj as superqelem;
@@ -228,7 +233,7 @@ namespace superqDotNet
 
         }
 
-        public void push(dynamic val, int idx = -1, bool block = false, int? timeout = null)
+        public void push(dynamic val, int? idx = null, bool block = false, int? timeout = null)
         {
             if (maxlen.HasValue && list.count > maxlen)
             {
@@ -243,11 +248,52 @@ namespace superqDotNet
                             throw new Exception("timeout must be non-negative");
                         else
                         {
-
+                            DateTime endTime = DateTime.Now.AddMilliseconds(timeout.Value);
+                            while (list.count >= maxlen)
+                            {
+                                TimeSpan remaining = endTime.Subtract(DateTime.Now);
+                                if (remaining.TotalSeconds < 0)
+                                {
+                                    throw new Exception("superq is full");
+                                }
+                            }
                         }
                     }
                 }
+                else
+                {
+                    if (maxlen < 0)
+                        throw new Exception("maxlen is negative");
+                    return;
+                }
             }
+            else if (maxlen.HasValue && list.count == maxlen)
+            {
+                if (!idx.HasValue || idx >= list.count - 1)
+                    pop_head();
+                else if (idx <= 0)
+                    pop_tail();
+                else
+                    throw new Exception("Cannot insert into full set");
+            }
+
+            // convert value to sqe if necessary
+            superqelem sqe = wrap_elem(val);
+
+            // add sqe to internal dict
+            dict[sqe.name] = sqe;
+
+            // add sqe to internal list
+            if (!idx.HasValue || idx >= list.count - 1)
+                // default to stack/LIFO behavior
+                list.push_tail(sqe);
+            else if (idx == 0)
+                list.push_head(sqe);
+            else
+                list.push(idx.Value, sqe);
+
+            if (attached)
+                CreateElemDatastore(sqe, idx);
         }
 
         public void push_head(dynamic val, bool block = true, int timeout = -1)

@@ -45,6 +45,11 @@ namespace superqDotNet
             attached = false;
         }
 
+        public superq(string name, string host, bool attach = false)
+        {
+            FromString(SuperQNetworkClientMgr.superq_read(name, host).ToString(), attach);
+        }
+
         static public superq Create(dynamic obj, string keyCol = "")
         {
             string name = Guid.NewGuid().ToString();

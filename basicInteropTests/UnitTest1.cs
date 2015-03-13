@@ -101,5 +101,23 @@ namespace basicInteropTests
         {
             superq sq = superq.Create(new FooNode[] { new FooNode(1), new FooNode(2) }, "a");
         }
+
+        [TestMethod]
+        public void CreateRemote()
+        {
+
+        }
+
+        [TestMethod]
+        public void ReadRemote()
+        {
+
+        }
+
+        [TestMethod]
+        public void DeleteRemote()
+        {
+
+        }
     }
 }

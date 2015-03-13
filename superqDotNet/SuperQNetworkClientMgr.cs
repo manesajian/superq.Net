@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public class SuperQNetworkClientMgr
+    public static class SuperQNetworkClientMgr
     {
-        const int DEFAULT_TCP_PORT = 9990;
+        private static const int DEFAULT_TCP_PORT = 9990;
 
         public SuperQNetworkClientMgr()
         {
@@ -188,7 +188,7 @@ namespace superqDotNet
             send_msg(sq.host, request.ToString());
         }
 
-        public superq superq_read(string name, string host)
+        static public superq superq_read(string name, string host)
         {
             // build request object from string
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -201,7 +201,7 @@ namespace superqDotNet
                 throw new Exception(name + " does not exist.");
 
             // deserialize response body into a detached superq and return
-            return new superq(response.body, "", "", false, true);
+            return new superq(response.body, "", "", "", false, true);
         }
 
         public void superq_delete(superq sq)
@@ -227,7 +227,7 @@ namespace superqDotNet
             if (bool.Parse(response.result) == false)
                 throw new Exception("Not sure what to raise here yet.");
             
-            return new superq(response.body, "", "", false, true);
+            return new superq(response.body, "", "", "", false, true);
         }
 
         public void superqelem_create(superq sq, superqelem sqe, int idx = -1)

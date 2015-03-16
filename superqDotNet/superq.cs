@@ -68,6 +68,11 @@ namespace superqDotNet
             return null;
         }
 
+        static public superq Delete(string name, string host)
+        {
+            return null;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

@@ -109,7 +109,7 @@ namespace basicInteropTests
 
             try
             {
-                superq sq = superq.Read("sq1", "127.0.0.1:9990");
+                sq = superq.Read("sq1", "127.0.0.1:9990");
             }
             catch
             {

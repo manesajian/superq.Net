@@ -45,6 +45,7 @@ namespace superqDotNet
             attached = false;
         }
 
+        // Read remote superq
         public superq(string name, string host, bool attach = false)
         {
             FromString(SuperQNetworkClientMgr.superq_read(name, host).ToString(), attach);
@@ -55,6 +56,16 @@ namespace superqDotNet
             string name = Guid.NewGuid().ToString();
 
             return new superq(obj, name, string.Empty, keyCol, false, false);
+        }
+
+        static public superq Create(dynamic obj, string name, string host, string keyCol = "")
+        {
+            return null;
+        }
+
+        static public superq Read(string name, string host)
+        {
+            return null;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

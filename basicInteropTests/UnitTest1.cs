@@ -106,18 +106,40 @@ namespace basicInteropTests
         public void CreateRemote()
         {
             superq sq = superq.Create(new int[] { 1, 2, 3 }, "sq1", "127.0.0.1:9990");
+
+            try
+            {
+                superq sq = superq.Read("sq1", "127.0.0.1:9990");
+            }
+            catch
+            {
+                Assert.Fail("superq either not created or not read.");
+            }
         }
 
         [TestMethod]
         public void ReadRemote()
         {
             superq sq = superq.Read("sq1", "127.0.0.1:9990");
+
+            Assert.AreEqual(1, sq[0]);
         }
 
         [TestMethod]
         public void DeleteRemote()
         {
+            superq.Delete("sq1", "127.0.0.1:9990");
 
+            try
+            {
+                superq sq = superq.Read("sq1", "127.0.0.1:9990");
+            }
+            catch
+            {
+                return;
+            }
+
+            Assert.Fail("superq not deleted.");
         }
     }
 }

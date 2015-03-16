@@ -105,13 +105,13 @@ namespace basicInteropTests
         [TestMethod]
         public void CreateRemote()
         {
-
+            superq sq = superq.Create(new int[] { 1, 2, 3 }, "sq1", "127.0.0.1:9990");
         }
 
         [TestMethod]
         public void ReadRemote()
         {
-
+            superq sq = superq.Read("sq1", "127.0.0.1:9990");
         }
 
         [TestMethod]

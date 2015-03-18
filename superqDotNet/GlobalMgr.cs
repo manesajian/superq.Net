@@ -8,17 +8,25 @@ namespace superqDotNet
 {
     public static class GlobalMgr
     {
-        private SuperQNetworkClientMgr _client = null;
+        private static SuperQNetworkClientMgr _clientMgr = null;
 
-        public SuperQNetworkClientMgr client
+        public SuperQNetworkClientMgr clientMgr
         {
             get
             {
-                return _client;
+                lock (_clientMgr)
+                {
+                    if (_clientMgr == null)
+                        _clientMgr = new SuperQNetworkClientMgr();
+                }
+                return _clientMgr;
             }
             set
             {
-                _client = value;
+                lock (_clientMgr)
+                {
+                    _clientMgr = value;
+                }
             }
         }
     }

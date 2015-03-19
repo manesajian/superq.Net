@@ -17,7 +17,7 @@ namespace superqDotNet
 
         }
 
-        private void send(Socket socket, byte[] buf)
+        private static void send(Socket socket, byte[] buf)
         {
             int sent = 0;
             do
@@ -42,7 +42,7 @@ namespace superqDotNet
             } while (sent < buf.Count());
         }
 
-        private byte[] recv(Socket socket, int bytes)
+        private static byte[] recv(Socket socket, int bytes)
         {
             byte[] buf = new byte[bytes];
 
@@ -70,7 +70,7 @@ namespace superqDotNet
             return buf;
         }
 
-        private SuperQNodeResponse get_msg(Socket socket)
+        private static SuperQNodeResponse get_msg(Socket socket)
         {
             // first byte will always be a marker to verify begining of Request
             byte[] data = recv(socket, 1);
@@ -100,7 +100,7 @@ namespace superqDotNet
             return response;
         }
 
-        private SuperQNodeResponse send_msg(string host, string msg)
+        private static SuperQNodeResponse send_msg(string host, string msg)
         {
             // SSL support is not currently implemented
             bool ssl = false;
@@ -165,7 +165,7 @@ namespace superqDotNet
             return response;
         }
 
-        public bool superq_exists(string name, string host)
+        public static bool superq_exists(string name, string host)
         {
             // build request object from string
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -177,7 +177,7 @@ namespace superqDotNet
             return bool.Parse(response.result);
         }
 
-        public void superq_create(superq sq)
+        public static void superq_create(superq sq)
         {
             // build request object from string
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -188,7 +188,7 @@ namespace superqDotNet
             send_msg(sq.host, request.ToString());
         }
 
-        static public superq superq_read(string name, string host)
+        public static superq superq_read(string name, string host)
         {
             // build request object from string
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -204,7 +204,7 @@ namespace superqDotNet
             return new superq(response.body, "", "", "", false, true);
         }
 
-        public void superq_delete(superq sq)
+        public static void superq_delete(superq sq)
         {
             // build request object
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -214,7 +214,7 @@ namespace superqDotNet
             send_msg(sq.host, request.ToString());
         }
 
-        public superq superq_query(superq sq, string query)
+        public static superq superq_query(superq sq, string query)
         {
             // build request object from string
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -230,7 +230,7 @@ namespace superqDotNet
             return new superq(response.body, "", "", "", false, true);
         }
 
-        public void superqelem_create(superq sq, superqelem sqe, int idx = -1)
+        public static void superqelem_create(superq sq, superqelem sqe, int idx = -1)
         {
             // build request object
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -241,7 +241,7 @@ namespace superqDotNet
             send_msg(sq.host, request.ToString());
         }
 
-        public void superqelem_update(superq sq, superqelem sqe)
+        public static void superqelem_update(superq sq, superqelem sqe)
         {
             // build request object
             SuperQNodeRequest request = new SuperQNodeRequest();
@@ -252,7 +252,7 @@ namespace superqDotNet
             send_msg(sq.host, request.ToString());
         }
 
-        public void superqelem_delete(superq sq, string name)
+        public static void superqelem_delete(superq sq, string name)
         {
             // build request object
             SuperQNodeRequest request = new SuperQNodeRequest();

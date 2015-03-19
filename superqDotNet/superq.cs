@@ -35,7 +35,7 @@ namespace superqDotNet
             this.keyCol = keyCol;
 
             publicName = "";
-            maxlen = 0;
+            maxlen = null;
             autoKey = false;
 
             if (obj.GetType().IsArray)
@@ -60,7 +60,11 @@ namespace superqDotNet
 
         static public superq Create(dynamic obj, string name, string host, string keyCol = "")
         {
-            return null;
+            superq sq = new superq(name, host, true);
+
+            SuperQNetworkClientMgr.superq_create(sq);
+
+            return sq;
         }
 
         static public superq Read(string name, string host)

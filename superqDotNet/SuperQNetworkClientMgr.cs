@@ -204,14 +204,14 @@ namespace superqDotNet
             return new superq(response.body, "", "", "", false, true);
         }
 
-        public static void superq_delete(superq sq)
+        public static void superq_delete(string name, string host)
         {
             // build request object
             SuperQNodeRequest request = new SuperQNodeRequest();
             request.cmd = "superq_delete";
-            request.args = sq.publicName;
+            request.args = name;
 
-            send_msg(sq.host, request.ToString());
+            send_msg(host, request.ToString());
         }
 
         public static superq superq_query(superq sq, string query)

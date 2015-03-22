@@ -69,12 +69,12 @@ namespace superqDotNet
 
         static public superq Read(string name, string host)
         {
-            return null;
+            return SuperQNetworkClientMgr.superq_read(name, host);
         }
 
         static public superq Delete(string name, string host)
         {
-            return null;
+            SuperQNetworkClientMgr.superq_delete(name, host);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

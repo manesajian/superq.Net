@@ -72,7 +72,7 @@ namespace superqDotNet
             return SuperQNetworkClientMgr.superq_read(name, host);
         }
 
-        static public superq Delete(string name, string host)
+        static public void Delete(string name, string host)
         {
             SuperQNetworkClientMgr.superq_delete(name, host);
         }

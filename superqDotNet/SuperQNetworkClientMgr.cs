@@ -10,12 +10,7 @@ namespace superqDotNet
 {
     public static class SuperQNetworkClientMgr
     {
-        private static const int DEFAULT_TCP_PORT = 9990;
-
-        public SuperQNetworkClientMgr()
-        {
-
-        }
+        private const int DEFAULT_TCP_PORT = 9990;
 
         private static void send(Socket socket, byte[] buf)
         {

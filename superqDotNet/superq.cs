@@ -30,6 +30,12 @@ namespace superqDotNet
                       bool attach,
                       bool buildFromStr = false)
         {
+            if (buildFromStr)
+            {
+                FromString(obj);
+                return;
+            }
+
             this.name = name;
             this.host = host;
             this.keyCol = keyCol;

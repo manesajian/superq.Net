@@ -10,7 +10,7 @@ namespace superqDotNet
     {
         private static SuperQNetworkClientMgr _clientMgr = null;
 
-        public SuperQNetworkClientMgr clientMgr
+        public static SuperQNetworkClientMgr clientMgr
         {
             get
             {

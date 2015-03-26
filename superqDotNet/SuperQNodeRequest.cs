@@ -18,12 +18,20 @@ namespace superqDotNet
 
         public SuperQNodeRequest()
         {
-            msg_id = get_msg_id().ToString();
+            msg_id = get_id().ToString();
         }
 
-        public int get_msg_id()
+        public int get_id()
         {
             return Interlocked.Increment(ref last_msg_id);
+        }
+
+        public string ToString()
+        {
+            return msg_id + '|' +
+                   cmd + '|' +
+                   args + ";;" +
+                   body;
         }
     }
 }

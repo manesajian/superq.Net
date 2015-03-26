@@ -19,7 +19,7 @@ namespace superqDotNet
             {
                 try
                 {
-                    sent += socket.Send(buf, sent, buf.Count() - sent, SocketFlags.None);
+                    sent += socket.Send(buf, sent, buf.Length - sent, SocketFlags.None);
                 }
                 catch (SocketException e)
                 {
@@ -34,7 +34,7 @@ namespace superqDotNet
                         throw e;
                 }
 
-            } while (sent < buf.Count());
+            } while (sent < buf.Length);
         }
 
         private static byte[] recv(Socket socket, int bytes)

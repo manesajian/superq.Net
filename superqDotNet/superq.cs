@@ -66,7 +66,7 @@ namespace superqDotNet
 
         static public superq Create(dynamic obj, string name, string host, string keyCol = "")
         {
-            superq sq = new superq(name, host, true);
+            superq sq = new superq(obj, name, "", keyCol, false);
 
             SuperQNetworkClientMgr.superq_create(sq);
 

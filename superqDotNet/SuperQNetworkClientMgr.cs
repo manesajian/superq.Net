@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace superqDotNet
 {
-    public static class SuperQNetworkClientMgr
+    public class SuperQNetworkClientMgr
     {
         private const int DEFAULT_TCP_PORT = 9990;
 
-        private static void send(Socket socket, byte[] buf)
+        private void send(Socket socket, byte[] buf)
         {
             int sent = 0;
             do
@@ -37,7 +37,7 @@ namespace superqDotNet
             } while (sent < buf.Length);
         }
 
-        private static byte[] recv(Socket socket, int bytes)
+        private byte[] recv(Socket socket, int bytes)
         {
             byte[] buf = new byte[bytes];
 
@@ -65,7 +65,7 @@ namespace superqDotNet
             return buf;
         }
 
-        private static SuperQNodeResponse get_msg(Socket socket)
+        private SuperQNodeResponse get_msg(Socket socket)
         {
             // first byte will always be a marker to verify begining of Request
             byte[] data = recv(socket, 1);
@@ -95,7 +95,7 @@ namespace superqDotNet
             return response;
         }
 
-        private static SuperQNodeResponse send_msg(string host, string msg)
+        private SuperQNodeResponse send_msg(string host, string msg)
         {
             // SSL support is not currently implemented
             bool ssl = false;
@@ -146,7 +146,8 @@ namespace superqDotNet
             Encoding.UTF8.GetBytes(msg).CopyTo(buf, 5);     
 
             // open socket
-            Socket socket = new TcpClient(host, port).Client;
+            TcpClient client = new TcpClient(host, port);
+            Socket socket = client.Client;
 
             // send message
             send(socket, buf);
@@ -155,7 +156,7 @@ namespace superqDotNet
             SuperQNodeResponse response = get_msg(socket);
 
             // close socket
-            socket.Close();
+            client.Close();
 
             return response;
         }
@@ -167,7 +168,8 @@ namespace superqDotNet
             request.cmd = "superq_exists";
             request.args = name;
 
-            SuperQNodeResponse response = send_msg(host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            SuperQNodeResponse response = mgr.send_msg(host, request.ToString());
 
             return bool.Parse(response.result);
         }
@@ -180,7 +182,8 @@ namespace superqDotNet
             request.args = sq.publicName;
             request.body = sq.ToString();
 
-            send_msg(sq.host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            mgr.send_msg(sq.host, request.ToString());
         }
 
         public static superq superq_read(string name, string host)
@@ -190,7 +193,8 @@ namespace superqDotNet
             request.cmd = "superq_read";
             request.args = name;
 
-            SuperQNodeResponse response = send_msg(host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            SuperQNodeResponse response = mgr.send_msg(host, request.ToString());
 
             if (bool.Parse(response.result) == false)
                 throw new Exception(name + " does not exist.");
@@ -206,7 +210,8 @@ namespace superqDotNet
             request.cmd = "superq_delete";
             request.args = name;
 
-            send_msg(host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            mgr.send_msg(host, request.ToString());
         }
 
         public static superq superq_query(superq sq, string query)
@@ -217,7 +222,8 @@ namespace superqDotNet
             request.args = sq.publicName;
             request.body = query;
 
-            SuperQNodeResponse response = send_msg(sq.host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            SuperQNodeResponse response = mgr.send_msg(sq.host, request.ToString());
 
             if (bool.Parse(response.result) == false)
                 throw new Exception("Not sure what to raise here yet.");
@@ -233,7 +239,8 @@ namespace superqDotNet
             request.args = sq.publicName + "," + idx.ToString();
             request.body = sqe.ToString();
 
-            send_msg(sq.host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            mgr.send_msg(sq.host, request.ToString());
         }
 
         public static void superqelem_update(superq sq, superqelem sqe)
@@ -244,7 +251,8 @@ namespace superqDotNet
             request.args = sq.publicName;
             request.body = sqe.ToString();
 
-            send_msg(sq.host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            mgr.send_msg(sq.host, request.ToString());
         }
 
         public static void superqelem_delete(superq sq, string name)
@@ -255,7 +263,8 @@ namespace superqDotNet
             request.args = sq.publicName;
             request.body = name;
 
-            send_msg(sq.host, request.ToString());
+            SuperQNetworkClientMgr mgr = new SuperQNetworkClientMgr();
+            mgr.send_msg(sq.host, request.ToString());
         }
     }
 }
